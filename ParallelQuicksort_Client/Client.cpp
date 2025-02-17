@@ -44,9 +44,6 @@ void fillupRandomly(int* m, int size, unsigned int min, unsigned int max) {
 // Driver code
 int main(int argc, char* argv[])
 {
-    int server_reply[100];
-    int number[100]; 
-    int i;
 
     int N;
     cout << "Please, input size of array: ";
@@ -55,8 +52,10 @@ int main(int argc, char* argv[])
     cout << "Please, input number of threads: ";
     cin >> numThreads; 
 
-    fillupRandomly(number, N, 0, 1000);
-    //fillUp(number, N);
+    int* numbers = new int[N];
+
+    //fillupRandomly(numbers, N, 0, 1000);
+    fillUp(numbers, N);
 
     //initialize WSA variables
     WSADATA wsaData;
@@ -66,6 +65,7 @@ int main(int argc, char* argv[])
 
     if (wsaerr != 0) {
         std::cout << "The winsock dll not found" << std::endl;
+        delete[]numbers;
         return 0;
     }
     else {
@@ -80,6 +80,7 @@ int main(int argc, char* argv[])
     if (socket_client == INVALID_SOCKET) {
         std::cout << "Error at socket(): " << WSAGetLastError() << std::endl;
         WSACleanup();
+        delete[]numbers;
         return 0;
     }
     cout << "Socket is created!" << endl;
@@ -93,29 +94,63 @@ int main(int argc, char* argv[])
     if (connect(socket_client, reinterpret_cast<SOCKADDR*>(&server), sizeof(server)) == SOCKET_ERROR) {
         std::cout << "Client: connect() - Failed to connect: " << WSAGetLastError() << std::endl;
         WSACleanup();
+        delete[]numbers;
         return 0;
     }
     else {
         std::cout << "Client: Connect() is OK!" << std::endl;
         std::cout << "Client: Can start sending and receiving data..." << std::endl;
     }
-    int sendBytesCount = send(socket_client, (const char*)&number, N * sizeof(int), 0);
+
+    int sendBytesCount = send(socket_client, reinterpret_cast<const char*>(&N), sizeof(N), 0);
     if (sendBytesCount == SOCKET_ERROR) {
         std::cout << "Client send error: " << WSAGetLastError() << std::endl;
+        delete[]numbers;
+        return -1;
+    }
+    std::cout << "Client: Sent " << sendBytesCount << " bytes" << endl;
+
+    sendBytesCount = send(socket_client, reinterpret_cast<const char*>(numbers), N * sizeof(int), 0);
+    if (sendBytesCount == SOCKET_ERROR) {
+        std::cout << "Client send error: " << WSAGetLastError() << std::endl;
+        delete[]numbers;
         return -1;
     }
     cout << "Client: Sent " << sendBytesCount << " bytes" << endl;
 
-    // Receive a reply from the server
-    char receiveBuffer[200]; //char *
-    int rbyteCount = recv(socket_client, receiveBuffer, 200, 0);
-    if (rbyteCount < 0) {
-        std::cout << "Client recv error: " << WSAGetLastError() << std::endl;
-        return 0;
+    int* receivedNumbers = new int[N];
+    int bytesExpected = N * sizeof(int);
+    int totalReceived = 0;
+
+    // We cast the int* to a char* to receive raw bytes.
+    char* recvBuffer = reinterpret_cast<char*>(receivedNumbers);
+
+    while (totalReceived < bytesExpected) {
+        int bytes = recv(socket_client, recvBuffer + totalReceived, bytesExpected - totalReceived, 0);
+        if (bytes == SOCKET_ERROR) {
+            std::cerr << "Error in recv: " << WSAGetLastError() << std::endl;
+            break;
+        }
+        if (bytes == 0) { // connection closed by server
+            std::cerr << "Connection closed by server." << std::endl;
+            break;
+        }
+        totalReceived += bytes;
+    }
+
+    if (totalReceived < bytesExpected) {
+        std::cerr << "Incomplete data received: expected " << bytesExpected << " bytes, but got " << totalReceived << " bytes." << std::endl;
     }
     else {
-        std::cout << "Client: Received data: " << receiveBuffer << std::endl;
+        std::cout << "Client: Received sorted integers: ";
+        for (int i = 0; i < N; i++) {
+            std::cout << receivedNumbers[i] << " ";
+        }
+        std::cout << std::endl;
     }
+
+    delete[]numbers;
+    delete[] receivedNumbers;
 
     WSACleanup();
     return 0;
