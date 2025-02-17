@@ -123,10 +123,10 @@ int main(int argc, char* argv[])
     int totalReceived = 0;
 
     // We cast the int* to a char* to receive raw bytes.
-    char* recvBuffer = reinterpret_cast<char*>(receivedNumbers);
+    char* receivedBuffer = reinterpret_cast<char*>(receivedNumbers);
 
     while (totalReceived < bytesExpected) {
-        int bytes = recv(socket_client, recvBuffer + totalReceived, bytesExpected - totalReceived, 0);
+        int bytes = recv(socket_client, receivedBuffer + totalReceived, bytesExpected - totalReceived, 0);
         if (bytes == SOCKET_ERROR) {
             std::cerr << "Error in recv: " << WSAGetLastError() << std::endl;
             break;
