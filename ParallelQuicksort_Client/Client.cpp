@@ -102,7 +102,7 @@ int main(int argc, char* argv[])
         std::cout << "Client: Can start sending and receiving data..." << std::endl;
     }
 
-    int sendBytesCount = send(socket_client, reinterpret_cast<const char*>(&N), sizeof(N), 0);
+    int sendBytesCount = send(socket_client, (const char*)&N, sizeof(N), 0);
     if (sendBytesCount == SOCKET_ERROR) {
         std::cout << "Client send error: " << WSAGetLastError() << std::endl;
         delete[]numbers;
@@ -110,7 +110,7 @@ int main(int argc, char* argv[])
     }
     std::cout << "Client: Sent " << sendBytesCount << " bytes" << endl;
 
-    sendBytesCount = send(socket_client, reinterpret_cast<const char*>(numbers), N * sizeof(int), 0);
+    sendBytesCount = send(socket_client, (const char*)numbers, N * sizeof(int), 0);
     if (sendBytesCount == SOCKET_ERROR) {
         std::cout << "Client send error: " << WSAGetLastError() << std::endl;
         delete[]numbers;
@@ -123,7 +123,7 @@ int main(int argc, char* argv[])
     int totalReceived = 0;
 
     // We cast the int* to a char* to receive raw bytes.
-    char* receivedBuffer = reinterpret_cast<char*>(receivedNumbers);
+    char* receivedBuffer = (char*)receivedNumbers;
 
     while (totalReceived < bytesExpected) {
         int bytes = recv(socket_client, receivedBuffer + totalReceived, bytesExpected - totalReceived, 0);

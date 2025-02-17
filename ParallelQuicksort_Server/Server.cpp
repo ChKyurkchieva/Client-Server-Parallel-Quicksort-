@@ -127,7 +127,7 @@ int main(int argc, char* argv[])
     std::cout << "Connection accepted" << std::endl;
 
     int N = 0;
-    int nbytes = recv(socket_client, reinterpret_cast<char*>(&N), sizeof(N), 0);
+    int nbytes = recv(socket_client, (char*)&N, sizeof(N), 0);
     if (nbytes != sizeof(N)) {
         std::cerr << "Error: did not receive the expected size." << std::endl;
         // Handle error...
@@ -137,7 +137,7 @@ int main(int argc, char* argv[])
     }
 
     int* message = new int[N];
-    int read_size = recv(socket_client, reinterpret_cast<char*>(message), N * (sizeof(int)), 0);
+    int read_size = recv(socket_client, (char*)message, N * (sizeof(int)), 0);
     if (read_size < 0)
     {
         std::cout << "Server receive failed!" << WSAGetLastError() << std::endl;
@@ -151,7 +151,7 @@ int main(int argc, char* argv[])
         std::cout << message[i] << ' ';
     }
 
-    int sendBytesCount = send(socket_client, reinterpret_cast<char*>(message), N * sizeof(int), 0);
+    int sendBytesCount = send(socket_client, (const char*)message, N * sizeof(int), 0);
     if (sendBytesCount == SOCKET_ERROR)
     {
         std::cout << "Server send error: " << WSAGetLastError() << std::endl;
