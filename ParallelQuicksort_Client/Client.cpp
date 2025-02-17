@@ -44,8 +44,6 @@ void fillupRandomly(int* m, int size, unsigned int min, unsigned int max) {
 // Driver code
 int main(int argc, char* argv[])
 {
-    //int sock;
-    //struct sockaddr_in server;
     int server_reply[100];
     int number[100]; 
     int i;

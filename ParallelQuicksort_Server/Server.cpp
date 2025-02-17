@@ -1,4 +1,3 @@
-
 // Server code in C to sort the array
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
@@ -62,8 +61,6 @@ int main(int argc, char* argv[])
 {
     std::cout << sizeof(int) << std::endl;
     //initialization
-    //int socket_desc, client_sock, c, read_size;
-    //struct sockaddr_in server, client;
     int N = 100;
     WSADATA wsaData;
     int wsaerr;
@@ -106,7 +103,6 @@ int main(int argc, char* argv[])
     // Bind the socket
     if (bind(socket_server, (struct sockaddr*)&service, sizeof(service)) == SOCKET_ERROR) {
 
-        // print the error message
         std::cout << "Binding failed" << WSAGetLastError() << std::endl;
         closesocket(socket_server);
         WSACleanup();
@@ -132,21 +128,14 @@ int main(int argc, char* argv[])
 
     std::cout << "Connection accepted" << std::endl;
 
-
-    //Receive a message from client 
-    /**/
-    // Receive a message from client
-
     int* message = new int[N];
     int read_size = recv(socket_client, (char*)message, N * (sizeof(int)), 0);
     if (read_size < 0)
     {
         std::cout << "Server receive failed!" << WSAGetLastError() << std::endl;
-        //need to clean up
         delete[]message;
     }
 
-    //std::cout << "Received data: " << message << std::endl;
     quicksort(message, 0, N - 1);
 
     for (int i = 0; i < N; i++)
@@ -159,7 +148,6 @@ int main(int argc, char* argv[])
     {
         std::cout << "Server send error: " << WSAGetLastError() << std::endl;
         delete[]message;
-        //need to cleen up
         return -1;
     }
     std::cout << "Server: Sent " << sendBytesCount << " bytes" << std::endl;
