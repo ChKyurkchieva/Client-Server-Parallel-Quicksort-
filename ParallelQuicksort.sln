@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ParallelQuicksort", "ParallelQuicksort\ParallelQuicksort.vcxproj", "{9DFC5B37-468E-4919-9075-7B108D21B0B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ParallelQuicksortServer", "ParallelQuicksortServer", "{E9E86E20-C4AD-47E3-9C71-55A75D3EF457}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ParallelQuicksortClient", "ParallelQuicksortClient", "{47C392F3-A463-4AAF-AA65-65175C175A1A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ParallelQuicksort_Client", "ParallelQuicksort_Client\ParallelQuicksort_Client.vcxproj", "{E71D81B0-DCD3-4391-AC6A-037194A50264}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ParallelQuicksort_Server", "ParallelQuicksort_Server\ParallelQuicksort_Server.vcxproj", "{4DCA55D6-F010-46D7-8C12-0C80BCB14614}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9DFC5B37-468E-4919-9075-7B108D21B0B2}.Debug|x64.ActiveCfg = Debug|x64
+		{9DFC5B37-468E-4919-9075-7B108D21B0B2}.Debug|x64.Build.0 = Debug|x64
+		{9DFC5B37-468E-4919-9075-7B108D21B0B2}.Debug|x86.ActiveCfg = Debug|Win32
+		{9DFC5B37-468E-4919-9075-7B108D21B0B2}.Debug|x86.Build.0 = Debug|Win32
+		{9DFC5B37-468E-4919-9075-7B108D21B0B2}.Release|x64.ActiveCfg = Release|x64
+		{9DFC5B37-468E-4919-9075-7B108D21B0B2}.Release|x64.Build.0 = Release|x64
+		{9DFC5B37-468E-4919-9075-7B108D21B0B2}.Release|x86.ActiveCfg = Release|Win32
+		{9DFC5B37-468E-4919-9075-7B108D21B0B2}.Release|x86.Build.0 = Release|Win32
+		{E71D81B0-DCD3-4391-AC6A-037194A50264}.Debug|x64.ActiveCfg = Debug|x64
+		{E71D81B0-DCD3-4391-AC6A-037194A50264}.Debug|x64.Build.0 = Debug|x64
+		{E71D81B0-DCD3-4391-AC6A-037194A50264}.Debug|x86.ActiveCfg = Debug|Win32
+		{E71D81B0-DCD3-4391-AC6A-037194A50264}.Debug|x86.Build.0 = Debug|Win32
+		{E71D81B0-DCD3-4391-AC6A-037194A50264}.Release|x64.ActiveCfg = Release|x64
+		{E71D81B0-DCD3-4391-AC6A-037194A50264}.Release|x64.Build.0 = Release|x64
+		{E71D81B0-DCD3-4391-AC6A-037194A50264}.Release|x86.ActiveCfg = Release|Win32
+		{E71D81B0-DCD3-4391-AC6A-037194A50264}.Release|x86.Build.0 = Release|Win32
+		{4DCA55D6-F010-46D7-8C12-0C80BCB14614}.Debug|x64.ActiveCfg = Debug|x64
+		{4DCA55D6-F010-46D7-8C12-0C80BCB14614}.Debug|x64.Build.0 = Debug|x64
+		{4DCA55D6-F010-46D7-8C12-0C80BCB14614}.Debug|x86.ActiveCfg = Debug|Win32
+		{4DCA55D6-F010-46D7-8C12-0C80BCB14614}.Debug|x86.Build.0 = Debug|Win32
+		{4DCA55D6-F010-46D7-8C12-0C80BCB14614}.Release|x64.ActiveCfg = Release|x64
+		{4DCA55D6-F010-46D7-8C12-0C80BCB14614}.Release|x64.Build.0 = Release|x64
+		{4DCA55D6-F010-46D7-8C12-0C80BCB14614}.Release|x86.ActiveCfg = Release|Win32
+		{4DCA55D6-F010-46D7-8C12-0C80BCB14614}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E71D81B0-DCD3-4391-AC6A-037194A50264} = {47C392F3-A463-4AAF-AA65-65175C175A1A}
+		{4DCA55D6-F010-46D7-8C12-0C80BCB14614} = {E9E86E20-C4AD-47E3-9C71-55A75D3EF457}
+	EndGlobalSection
+EndGlobal
