@@ -54,8 +54,8 @@ int main(int argc, char* argv[])
 
     int* numbers = new int[N];
 
-    //fillupRandomly(numbers, N, 0, 1000);
-    fillUp(numbers, N);
+    fillupRandomly(numbers, N, 0, 100000);
+    //fillUp(numbers, N);
 
     //initialize WSA variables
     WSADATA wsaData;
